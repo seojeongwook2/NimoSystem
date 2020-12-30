@@ -28,4 +28,11 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:layout_width="@dimen/nimo_system_image_width"
+        android:layout_height="@dimen/nimo_system_image_height"
+        android:background="@drawable/nimo_system_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
