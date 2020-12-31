@@ -2,4 +2,6 @@
 <resources>
     <dimen name="nimo_system_image_width">248dp</dimen>
     <dimen name="nimo_system_image_height">40dp</dimen>
+    <dimen name="item_phone_text_size">18sp</dimen>
+    <dimen name="item_phone_basic_margin">3dp</dimen>
 </resources>

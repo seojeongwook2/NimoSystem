@@ -4,29 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/external_layout">
 
-    <Button
-        android:id="@+id/send_button"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/login_code"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Send"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/next_button"
+        android:hint="접속 CODE를 입력하세요."
+        android:fontFamily="@font/maplestorylight"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/next_button"
-        android:layout_width="wrap_content"
+        android:id="@+id/login_button"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Receive"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="20dp"
+        android:text="접속하기"
+        android:fontFamily="@font/maplestorylight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_code" />
 
     <ImageView
         android:layout_width="@dimen/nimo_system_image_width"
@@ -34,5 +36,4 @@
         android:background="@drawable/nimo_system_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

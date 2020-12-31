@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#30000000">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/send_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/item_phone_basic_margin"
+                android:fontFamily="@font/maplestorylight"
+                android:text="메시지 전송하기"
+                android:textColor="@color/text_black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/message_body" />
+
+            <EditText
+                android:id="@+id/message_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/item_phone_basic_margin"
+                android:fontFamily="@font/maplestorylight"
+                android:hint="명령을 입력하세요."
+                android:textColor="@color/text_black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/number" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/item_phone_basic_margin"
+                android:fontFamily="@font/maplestorylight"
+                android:text="이름 : 서울"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/item_phone_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/item_phone_basic_margin"
+                android:fontFamily="@font/maplestorylight"
+                android:text="번호 : 012-2312-3212"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/item_phone_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/item_phone_basic_margin"
+                android:fontFamily="@font/maplestorylight"
+                android:text="메시지 로그"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/item_phone_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/send_button" />
+
+            <LinearLayout
+                android:id="@+id/message_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/item_phone_basic_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+
+                <LinearLayout
+                    android:id="@+id/message_log_layout_0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/item_phone_basic_margin">
+
+                    <TextView
+                        android:id="@+id/message_log_content_0"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="12"/>
+
+                    <TextView
+                        android:id="@+id/message_log_time_0"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="yyyy-MM-dd HH:mm:ss"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/message_log_layout_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/item_phone_basic_margin">
+
+                    <TextView
+                        android:id="@+id/message_log_content_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="12"/>
+
+                    <TextView
+                        android:id="@+id/message_log_time_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="yyyy-MM-dd HH:mm:ss"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/message_log_layout_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/item_phone_basic_margin">
+
+                    <TextView
+                        android:id="@+id/message_log_content_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="12"/>
+
+                    <TextView
+                        android:id="@+id/message_log_time_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="yyyy-MM-dd HH:mm:ss"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/message_log_layout_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/item_phone_basic_margin">
+
+                    <TextView
+                        android:id="@+id/message_log_content_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="12"/>
+
+                    <TextView
+                        android:id="@+id/message_log_time_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="yyyy-MM-dd HH:mm:ss"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/message_log_layout_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/item_phone_basic_margin">
+
+                    <TextView
+                        android:id="@+id/message_log_content_4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="12"/>
+
+                    <TextView
+                        android:id="@+id/message_log_time_4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="yyyy-MM-dd HH:mm:ss"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/message_log_layout_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/item_phone_basic_margin">
+
+                    <TextView
+                        android:id="@+id/message_log_content_5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="12"/>
+
+                    <TextView
+                        android:id="@+id/message_log_time_5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="yyyy-MM-dd HH:mm:ss"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/message_log_layout_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/item_phone_basic_margin">
+
+                    <TextView
+                        android:id="@+id/message_log_content_6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="12"/>
+
+                    <TextView
+                        android:id="@+id/message_log_time_6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="yyyy-MM-dd HH:mm:ss"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/message_log_layout_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/item_phone_basic_margin">
+
+                    <TextView
+                        android:id="@+id/message_log_content_7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="12"/>
+
+                    <TextView
+                        android:id="@+id/message_log_time_7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="yyyy-MM-dd HH:mm:ss"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/message_log_layout_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/item_phone_basic_margin">
+
+                    <TextView
+                        android:id="@+id/message_log_content_8"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="12"/>
+
+                    <TextView
+                        android:id="@+id/message_log_time_8"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="yyyy-MM-dd HH:mm:ss"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/message_log_layout_9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/item_phone_basic_margin">
+
+                    <TextView
+                        android:id="@+id/message_log_content_9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="12"/>
+
+                    <TextView
+                        android:id="@+id/message_log_time_9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="yyyy-MM-dd HH:mm:ss"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

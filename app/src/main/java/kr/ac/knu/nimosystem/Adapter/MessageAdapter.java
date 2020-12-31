@@ -37,31 +37,16 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         final MessageItem item = data.get(position);
         final MessageVH viewHolder = (MessageVH) holder;
 
-        viewHolder.message_id.setText("Message ID : " + item.getMessageId());
-        viewHolder.thread_id.setText("Thread ID : " + item.getThreadId());
-        viewHolder.address.setText("Address ID : " + item.getAddress());
-        viewHolder.contact_id.setText("Contact ID : " + item.getContactId());
-        viewHolder.contact_id_string.setText("Contact ID String : " + item.getContactId_string());
-        viewHolder.time_stamp.setText("Time Stamp : " + item.getTimestamp());
+        viewHolder.time_stamp.setText("Time : " + item.getTimestamp());
         viewHolder.body.setText("Body : " + item.getBody());
     }
 
     private class MessageVH extends RecyclerView.ViewHolder {
-        private TextView message_id;
-        private TextView thread_id;
-        private TextView address;
-        private TextView contact_id;
-        private TextView contact_id_string;
         private TextView time_stamp;
         private TextView body;
 
         public MessageVH(@NonNull View itemView) {
             super(itemView);
-            message_id = itemView.findViewById(R.id.message_id);
-            thread_id = itemView.findViewById(R.id.thread_id);
-            address = itemView.findViewById(R.id.address);
-            contact_id = itemView.findViewById(R.id.contact_id);
-            contact_id_string = itemView.findViewById(R.id.contact_id_string);
             time_stamp = itemView.findViewById(R.id.time_stamp);
             body = itemView.findViewById(R.id.body);
         }
