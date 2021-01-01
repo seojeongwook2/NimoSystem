@@ -34,10 +34,19 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private Context context;
     private ArrayList<PhoneItem> data;
     ArrayList<MessageItem> message_list = new ArrayList<>();
+    private SendInterface sendInterface;
 
     public PhoneAdapter(Context context, ArrayList<PhoneItem> data) {
         this.context = context;
         this.data = data;
+    }
+
+    public void setSendInterface(SendInterface sendInterface) {
+        this.sendInterface = sendInterface;
+    }
+
+    public interface SendInterface {
+        void onSignal(int position);
     }
 
     @NonNull
@@ -62,6 +71,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         vh.name.setText(data.get(position).getName());
         vh.number.setText(data.get(position).getNumber());
+
         readMessage(PHONE_NUMBER);
 
         if (message_list.size() < 10) {
@@ -91,6 +101,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         public PhoneVH(@NonNull View itemView) {
             super(itemView);
+
             name = itemView.findViewById(R.id.name);
             number = itemView.findViewById(R.id.number);
             message_body = itemView.findViewById(R.id.message_body);
@@ -141,6 +152,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 public void onClick(View view) {
                     String content = message_body.getText().toString();
                     sendMessage(data.get(getAdapterPosition()).getNumber(), content, getAdapterPosition());
+                    sendInterface.onSignal(getAdapterPosition());
                 }
             });
         }
@@ -177,7 +189,6 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     SmsManager smsManager = SmsManager.getDefault();
                     smsManager.sendTextMessage(phoneNumber, null, body, null, null);
                     Toast.makeText(context, "전송 완료", Toast.LENGTH_LONG).show();
-                    // readMessage(pos);
                 }
             });
 
