@@ -18,7 +18,7 @@ public class ControlActivity extends AppCompatActivity {
     private String login_type = "";
     private Button all_control_button;
     private Button next_page_button;
-    private Button add_button;
+    private Button add_button,login_his_button;
     private RecyclerView recyclerView;
     private ArrayList<PhoneItem> list;
 
@@ -38,6 +38,8 @@ public class ControlActivity extends AppCompatActivity {
         all_control_button = findViewById(R.id.all_control_button);
         next_page_button = findViewById(R.id.next_page_button);
         add_button = findViewById(R.id.add_button);
+        login_his_button = findViewById(R.id.login_history_button);
+
         list = new ArrayList<>();
 
         if (login_type.equals("0")) {
@@ -78,6 +80,13 @@ public class ControlActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+
+        login_his_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),LoginHistoryActivity.class));
             }
         });
     }
