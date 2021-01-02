@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Handler;
 import android.telephony.SmsManager;
 import android.text.Layout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,8 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.LogRecord;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -31,14 +35,17 @@ import kr.ac.knu.nimosystem.ReadMessageActivity;
 import kr.ac.knu.nimosystem.SendMessageActivity;
 
 public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private PhoneVH external_vh[];
     private Context context;
     private ArrayList<PhoneItem> data;
     ArrayList<MessageItem> message_list = new ArrayList<>();
     private SendInterface sendInterface;
 
+
     public PhoneAdapter(Context context, ArrayList<PhoneItem> data) {
         this.context = context;
         this.data = data;
+        external_vh = new PhoneVH[data.size() + 1];
     }
 
     public void setSendInterface(SendInterface sendInterface) {
@@ -74,21 +81,26 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         readMessage(PHONE_NUMBER);
 
+        for (int k = 0; k < 10; k++) {
+            vh.message_log_layout[k].setVisibility(View.VISIBLE);
+        }
+
         if (message_list.size() < 10) {
             for (int k = message_list.size(); k < 10; k++) {
                 vh.message_log_layout[k].setVisibility(View.GONE);
             }
-            for(int k = 0; k < message_list.size(); k++) {
+            for (int k = 0; k < message_list.size(); k++) {
                 vh.message_log_content[k].setText(message_list.get(k).getBody());
                 vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
             }
         } else {
-            for(int k = 0; k < 10; k++) {
+            for (int k = 0; k < 10; k++) {
                 vh.message_log_content[k].setText(message_list.get(k).getBody());
                 vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
             }
         }
     }
+
 
     private class PhoneVH extends RecyclerView.ViewHolder {
         private TextView name;
@@ -152,9 +164,45 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 public void onClick(View view) {
                     String content = message_body.getText().toString();
                     sendMessage(data.get(getAdapterPosition()).getNumber(), content, getAdapterPosition());
-                    sendInterface.onSignal(getAdapterPosition());
                 }
             });
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (payloads.isEmpty()) {
+            super.onBindViewHolder(holder, position, payloads);
+        } else {
+            for (Object payload : payloads) {
+                if (payload instanceof String) {
+                    String type = (String) payload;
+
+                    if (TextUtils.equals(type, "sms_receive") && holder instanceof PhoneVH) {
+                        readMessage(data.get(position).getNumber());
+                        final PhoneVH vh = (PhoneVH) holder;
+
+                        for (int k = 0; k < 10; k++) {
+                            vh.message_log_layout[k].setVisibility(View.VISIBLE);
+                        }
+
+                        if (message_list.size() < 10) {
+                            for (int k = message_list.size(); k < 10; k++) {
+                                vh.message_log_layout[k].setVisibility(View.GONE);
+                            }
+                            for (int k = 0; k < message_list.size(); k++) {
+                                vh.message_log_content[k].setText(message_list.get(k).getBody());
+                                vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
+                            }
+                        } else {
+                            for (int k = 0; k < 10; k++) {
+                                vh.message_log_content[k].setText(message_list.get(k).getBody());
+                                vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -175,12 +223,6 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private void sendMessage(final String phoneNumber, final String body, final int pos) {
         try {
-            /* 정상 동작하는 파트
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, body, null, null);
-            return true;
-             */
-
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("메시지 전송").setMessage("정말 보내시겠습니까?");
             builder.setPositiveButton("전송", new DialogInterface.OnClickListener() {
@@ -189,6 +231,14 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     SmsManager smsManager = SmsManager.getDefault();
                     smsManager.sendTextMessage(phoneNumber, null, body, null, null);
                     Toast.makeText(context, "전송 완료", Toast.LENGTH_LONG).show();
+
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            sendInterface.onSignal(pos);
+                        }
+                    }, 1000);
                 }
             });
 
@@ -235,8 +285,4 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.format(in);
     }
-
-    /*
-    https://chebaum.tistory.com/27
-     */
 }

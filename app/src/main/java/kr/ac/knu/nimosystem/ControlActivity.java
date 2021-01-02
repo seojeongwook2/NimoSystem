@@ -54,10 +54,11 @@ public class ControlActivity extends AppCompatActivity {
         list.add(new PhoneItem("01062817950", "서정욱"));
         list.add(new PhoneItem("01037806514", "장진현"));
         final PhoneAdapter adapter = new PhoneAdapter(ControlActivity.this, list);
+
         adapter.setSendInterface(new PhoneAdapter.SendInterface() {
             @Override
             public void onSignal(int position) {
-                adapter.notifyDataSetChanged();
+                adapter.notifyItemChanged(position, "sms_receive");
             }
         });
 
@@ -99,12 +100,14 @@ public class ControlActivity extends AppCompatActivity {
             list.clear();
             list.add(new PhoneItem("01062817950", "서정욱"));
             list.add(new PhoneItem("01037806514", "장진현"));
+
+
             final PhoneAdapter adapter = new PhoneAdapter(ControlActivity.this, list);
 
             adapter.setSendInterface(new PhoneAdapter.SendInterface() {
                 @Override
                 public void onSignal(int position) {
-                    adapter.notifyDataSetChanged();
+                    adapter.notifyItemChanged(position, "sms_receive");
                 }
             });
 
