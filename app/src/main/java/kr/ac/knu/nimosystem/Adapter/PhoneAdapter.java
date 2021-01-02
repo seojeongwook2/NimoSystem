@@ -35,17 +35,14 @@ import kr.ac.knu.nimosystem.ReadMessageActivity;
 import kr.ac.knu.nimosystem.SendMessageActivity;
 
 public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private PhoneVH external_vh[];
     private Context context;
     private ArrayList<PhoneItem> data;
     ArrayList<MessageItem> message_list = new ArrayList<>();
     private SendInterface sendInterface;
 
-
     public PhoneAdapter(Context context, ArrayList<PhoneItem> data) {
         this.context = context;
         this.data = data;
-        external_vh = new PhoneVH[data.size() + 1];
     }
 
     public void setSendInterface(SendInterface sendInterface) {
@@ -180,6 +177,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                     if (TextUtils.equals(type, "sms_receive") && holder instanceof PhoneVH) {
                         readMessage(data.get(position).getNumber());
+                        Log.e("Method :: ", "onBindViewHolder(holder, position, payloads) is called");
                         final PhoneVH vh = (PhoneVH) holder;
 
                         for (int k = 0; k < 10; k++) {

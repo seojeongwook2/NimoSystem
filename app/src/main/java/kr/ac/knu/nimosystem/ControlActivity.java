@@ -95,12 +95,11 @@ public class ControlActivity extends AppCompatActivity {
     private void processIntent(Intent intent){
         if(intent != null){
             String string = intent.getStringExtra("string");
-            Toast.makeText(ControlActivity.this, string, Toast.LENGTH_LONG).show();
+            // Toast.makeText(ControlActivity.this, string, Toast.LENGTH_LONG).show();
 
             list.clear();
             list.add(new PhoneItem("01062817950", "서정욱"));
             list.add(new PhoneItem("01037806514", "장진현"));
-
 
             final PhoneAdapter adapter = new PhoneAdapter(ControlActivity.this, list);
 
