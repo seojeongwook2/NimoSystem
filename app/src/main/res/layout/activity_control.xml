@@ -46,6 +46,7 @@
         android:layout_margin="5dp"
         android:fontFamily="@font/maplestorylight"
         app:layout_constraintEnd_toStartOf="@+id/next_page_button"
+
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView

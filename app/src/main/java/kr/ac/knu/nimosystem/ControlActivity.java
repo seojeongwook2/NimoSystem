@@ -48,6 +48,7 @@ public class ControlActivity extends AppCompatActivity {
             add_button.setVisibility(View.GONE);
         }
 
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(ControlActivity.this, RecyclerView.HORIZONTAL, false));
 
@@ -88,6 +89,13 @@ public class ControlActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),LoginHistoryActivity.class));
+            }
+        });
+
+        add_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),ManageActivity.class));
             }
         });
     }
