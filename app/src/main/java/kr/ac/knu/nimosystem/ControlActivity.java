@@ -3,6 +3,8 @@ package kr.ac.knu.nimosystem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import kr.ac.knu.nimosystem.Adapter.ManageAdapter;
 import kr.ac.knu.nimosystem.Adapter.PhoneAdapter;
 import kr.ac.knu.nimosystem.Model.PhoneItem;
 
@@ -10,6 +12,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.SmsManager;
@@ -30,6 +33,7 @@ public class ControlActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<PhoneItem> list;
     private Context context;
+    private DbOpenHelper mDbOpenHelper;
 
     /*
     로그인 기록 저장하는 것은 해당 기기에 로그인한 기록만 저장
@@ -44,6 +48,11 @@ public class ControlActivity extends AppCompatActivity {
 
     private void init() {
         context = this;
+
+        mDbOpenHelper =  new DbOpenHelper(this);
+        mDbOpenHelper.open();
+
+
         login_type = getIntent().getExtras().getString("LOGIN_TYPE");
         all_control_button = findViewById(R.id.all_control_button);
         next_page_button = findViewById(R.id.next_page_button);
@@ -61,9 +70,7 @@ public class ControlActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(ControlActivity.this, RecyclerView.HORIZONTAL, false));
 
-        list.clear();
-        list.add(new PhoneItem("01062817950", "서정욱"));
-        list.add(new PhoneItem("01037806514", "장진현"));
+        showDatabase();
 
         final PhoneAdapter adapter = new PhoneAdapter(ControlActivity.this, list);
 
@@ -186,9 +193,7 @@ public class ControlActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                list.clear();
-                list.add(new PhoneItem("01062817950", "서정욱"));
-                list.add(new PhoneItem("01037806514", "장진현"));
+                showDatabase();
 
                 final PhoneAdapter adapter = new PhoneAdapter(ControlActivity.this, list);
 
@@ -203,4 +208,20 @@ public class ControlActivity extends AppCompatActivity {
             }
         }, 1000);
     }
+
+
+    private void showDatabase(){
+
+        Cursor isCursor = mDbOpenHelper.sortColumn_info();
+        list.clear();
+        while(isCursor.moveToNext()){
+            String tempId = isCursor.getString(isCursor.getColumnIndex("_id"));
+            String tempName = isCursor.getString(isCursor.getColumnIndex("name"));
+            String tempNumber =isCursor.getString(isCursor.getColumnIndex("number"));
+            list.add(new PhoneItem(tempNumber,tempName));
+        }
+    }
+
+
+
 }

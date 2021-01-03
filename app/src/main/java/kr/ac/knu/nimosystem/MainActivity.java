@@ -36,12 +36,11 @@ public class MainActivity extends AppCompatActivity {
         login_code = findViewById(R.id.login_code);
         login_button = findViewById(R.id.login_button);
 
-
         mDbOpenHelper =  new DbOpenHelper(this);
         mDbOpenHelper.open();
         mDbOpenHelper.create();
-        showDatabase();
 
+        showDatabase();
         button_setting();
     }
 
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void showDatabase(){
-        Cursor isCursor = mDbOpenHelper.sortColumn();
+        Cursor isCursor = mDbOpenHelper.sortColumn_login();
 
         while(isCursor.moveToNext()){
             String tempId = isCursor.getString(isCursor.getColumnIndex("_id"));
@@ -117,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setLogin_history(String time,String type){
         mDbOpenHelper.open();
-        mDbOpenHelper.insertColumns(time,type);
+        mDbOpenHelper.insertColumn_login(time,type);
         showDatabase();
     }
 

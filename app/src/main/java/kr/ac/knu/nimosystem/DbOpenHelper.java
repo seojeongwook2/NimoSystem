@@ -30,6 +30,7 @@ public class DbOpenHelper {
         @Override
         public void onCreate(SQLiteDatabase sqLiteDatabase) {
             sqLiteDatabase.execSQL(MyDatabase.CreateDB._CREATE0);
+            sqLiteDatabase.execSQL(MyDatabase.CreateDB._CREATE1);
         }
 
 
@@ -42,25 +43,26 @@ public class DbOpenHelper {
 
     }
 
+    public DbOpenHelper(Context context) {
+        this.context = context;
+    }
 
-    public long insertColumns(String time,String type){
+
+    public long insertColumn_login(String time,String type){
         ContentValues values = new ContentValues();
         values.put(MyDatabase.CreateDB.TIME,time);
         values.put(MyDatabase.CreateDB.TYPE, type);
         return mDB.insert(MyDatabase.CreateDB._TABLENAME0, null, values);
+    }
 
+    public long insertColumn_info(String name,String number){
+        ContentValues values = new ContentValues();
+        values.put(MyDatabase.CreateDB.NAME,name);
+        values.put(MyDatabase.CreateDB.NUMBER,number);
+        return mDB.insert(MyDatabase.CreateDB._TABLENAME1,null,values);
     }
 
 
-
-    public Cursor selectColumns(){
-        return mDB.query(MyDatabase.CreateDB._TABLENAME0, null, null, null, null, null, null);
-    }
-
-
-    public DbOpenHelper(Context context) {
-        this.context = context;
-    }
 
     public DbOpenHelper open() throws SQLException {
         dbHelper = new DatabaseHelper(context,DATABASE_NAME,null,DATABAES_VERSION);
@@ -68,15 +70,13 @@ public class DbOpenHelper {
         return this;
     }
 
+
+
+
     public void create(){
         dbHelper.onCreate(mDB);
-        /*
-        String _CREATE0 = "create table if not exists "+_TABLENAME0+"("
-                +_ID+" integer primary key autoincrement, "
-                +NAME+" text not null , "
-                +NUMBER+" text not null);";
-         */
     }
+
 
     public void close(){
         mDB.close();
@@ -96,13 +96,22 @@ public class DbOpenHelper {
     }
 
     // Delete DB
-    public boolean deleteColumn(long id){
-        return mDB.delete(MyDatabase.CreateDB._TABLENAME0, "_id="+id, null) > 0;
+    public boolean deleteColumn_info(long id){
+        return mDB.delete(MyDatabase.CreateDB._TABLENAME1, "_id="+id, null) > 0;
     }
 
-    public Cursor sortColumn(){
+    public Cursor sortColumn_login(){
         Cursor c = mDB.rawQuery( "SELECT * FROM usertable", null);
         return c;
     }
 
+    public Cursor sortColumn_info(){
+        Cursor c = mDB.rawQuery( "SELECT * FROM infotable", null);
+        return c;
+    }
+
+
+    public Cursor selectColumns(){
+        return mDB.query(MyDatabase.CreateDB._TABLENAME0, null, null, null, null, null, null);
+    }
 }

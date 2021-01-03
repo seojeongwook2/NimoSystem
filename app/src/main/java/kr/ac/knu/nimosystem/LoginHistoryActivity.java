@@ -36,7 +36,7 @@ public class LoginHistoryActivity extends AppCompatActivity {
     private void showDatabase(){
         mDbOpenHelper =  new DbOpenHelper(this);
         mDbOpenHelper.open();
-        Cursor isCursor = mDbOpenHelper.sortColumn();
+        Cursor isCursor = mDbOpenHelper.sortColumn_login();
         list.clear();
         while(isCursor.moveToNext()){
             String tempId = isCursor.getString(isCursor.getColumnIndex("_id"));
