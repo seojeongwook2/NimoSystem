@@ -1,5 +1,6 @@
 package kr.ac.knu.nimosystem;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,9 +24,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 
 public class ControlActivity extends AppCompatActivity {
+    private static final int CHANGE_REQUEST = 892;
     private String login_type = "";
     private Button all_control_button;
     private Button next_page_button;
@@ -43,6 +47,9 @@ public class ControlActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control);
+
+
+
         init();
     }
 
@@ -138,7 +145,10 @@ public class ControlActivity extends AppCompatActivity {
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),ManageActivity.class));
+                Intent intent = new Intent(ControlActivity.this,ManageActivity.class);
+                startActivityForResult(intent,CHANGE_REQUEST);
+
+
             }
         });
     }
@@ -215,7 +225,7 @@ public class ControlActivity extends AppCompatActivity {
         Cursor isCursor = mDbOpenHelper.sortColumn_info();
         list.clear();
         while(isCursor.moveToNext()){
-            String tempId = isCursor.getString(isCursor.getColumnIndex("_id"));
+            //String tempId = isCursor.getString(isCursor.getColumnIndex("_id"));
             String tempName = isCursor.getString(isCursor.getColumnIndex("name"));
             String tempNumber =isCursor.getString(isCursor.getColumnIndex("number"));
             list.add(new PhoneItem(tempNumber,tempName));
@@ -223,5 +233,18 @@ public class ControlActivity extends AppCompatActivity {
     }
 
 
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode != RESULT_OK)return;
+        if(requestCode == CHANGE_REQUEST){
+            refresh_list();
+        }
+
+    }
 
 }

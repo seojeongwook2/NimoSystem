@@ -1,9 +1,12 @@
 package kr.ac.knu.nimosystem.Model;
 
-public class PhoneItem {
+import java.io.Serializable;
+
+public class PhoneItem implements Serializable {
     private String number;
     private String name;
     private String _id;
+    private int type;
 
     public PhoneItem(String number, String name) {
         this.number = number;
@@ -14,6 +17,12 @@ public class PhoneItem {
         this.number = number;
         this.name = name;
         this._id = _id;
+    }
+
+    public PhoneItem(String number,String name,int type){
+        this.number = number;
+        this.name = name;
+        this.type = 2;
     }
 
     public String getNumber() {
@@ -38,5 +47,13 @@ public class PhoneItem {
 
     public void set_id(String _id) {
         this._id = _id;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

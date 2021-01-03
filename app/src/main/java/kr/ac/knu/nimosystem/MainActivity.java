@@ -1,5 +1,6 @@
 package kr.ac.knu.nimosystem;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText login_code;
     private Button login_button;
     private DbOpenHelper mDbOpenHelper;
+    public static final int CHANGE_REQUEST = 892;
 
 
     @Override
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         mDbOpenHelper.open();
         mDbOpenHelper.create();
 
-        showDatabase();
+       // showDatabase();
         button_setting();
     }
 
@@ -114,10 +116,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void setLogin_history(String time,String type){
+    private void setLogin_history(String time, String type){
         mDbOpenHelper.open();
         mDbOpenHelper.insertColumn_login(time,type);
-        showDatabase();
+       // showDatabase();
     }
 
 

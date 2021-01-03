@@ -24,6 +24,16 @@ public class ManageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private ArrayList<PhoneItem> list;
     private DbOpenHelper mDbOpenHelper;
 
+    private OnDeleteClickListener mListener = null ;
+
+    public interface OnDeleteClickListener {
+        void onDeleteClick(PhoneItem deleteItem) ;
+    }
+
+    public void setOnItemClickListener(OnDeleteClickListener listener) {
+        this.mListener = listener ;
+    }
+
     public ManageAdapter(Context context, ArrayList<PhoneItem> list) {
         this.context = context;
         this.list = list;
@@ -58,28 +68,15 @@ public class ManageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             name = itemView.findViewById(R.id.name);
             delete = itemView.findViewById(R.id.delete);
 
-           name.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   Toast.makeText(context, "sdf", Toast.LENGTH_SHORT).show();
-               }
-           });
+
            delete.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
                    int position = getAdapterPosition();
                    if(getAdapterPosition() !=RecyclerView.NO_POSITION){
-                       Toast.makeText(context, "" + position, Toast.LENGTH_SHORT).show();
-
-                       mDbOpenHelper =  new DbOpenHelper(context);
-                       mDbOpenHelper.open();
-
-                       long _id = Long.valueOf(list.get(getAdapterPosition()).get_id());
-                       mDbOpenHelper.deleteColumn_info(_id);
-                       list.remove(getAdapterPosition());
-
-                       notifyItemRemoved(getAdapterPosition());
+                       mListener.onDeleteClick(list.get(position));
                    }
+
                }
            });
         }

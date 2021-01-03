@@ -91,8 +91,8 @@ public class DbOpenHelper {
     }
 
     // Delete All
-    public void deleteAllColumns() {
-        mDB.delete(MyDatabase.CreateDB._TABLENAME0, null, null);
+    public void deleteAllColumns_info() {
+        mDB.delete(MyDatabase.CreateDB._TABLENAME1, null, null);
     }
 
     // Delete DB
