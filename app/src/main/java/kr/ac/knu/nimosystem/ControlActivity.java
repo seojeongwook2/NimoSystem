@@ -98,33 +98,9 @@ public class ControlActivity extends AppCompatActivity {
         all_control_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                android.app.AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                LayoutInflater layoutInflater = LayoutInflater.from(context);
-                View verifiedView = layoutInflater.inflate(R.layout.dialog_all_send, null);
-
-                Button cancel_button = verifiedView.findViewById(R.id.cancel_button);
-                Button send_button = verifiedView.findViewById(R.id.send_button);
-                final EditText send_body = verifiedView.findViewById(R.id.dialog_all_send_body);
-
-                builder.setView(verifiedView);
-                final AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-
-                cancel_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
-                    }
-                });
-
-                send_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        final String send_content = send_body.getText().toString();
-                        sendMessage(send_content);
-                        alertDialog.dismiss();
-                    }
-                });
+                Intent intent = new Intent(ControlActivity.this, PopupActivity.class);
+                intent.putExtra("data", list);
+                startActivity(intent);
             }
         });
 
@@ -185,6 +161,7 @@ public class ControlActivity extends AppCompatActivity {
         processIntent(intent);
         super.onNewIntent(intent);
     }
+
 
     private void sendMessage(final String body) {
         try {
