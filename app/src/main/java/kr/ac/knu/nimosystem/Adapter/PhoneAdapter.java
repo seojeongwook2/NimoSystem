@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +62,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         View view = inflater.inflate(R.layout.item_phone, parent, false);
 
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        layoutParams.width = (parent.getWidth() / 2);
+        layoutParams.width = (parent.getWidth() / 2) - (layoutParams.leftMargin);
         view.setLayoutParams(layoutParams);
 
         PhoneVH vh = new PhoneVH(view);
@@ -73,7 +75,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         final PhoneVH vh = (PhoneVH) holder;
         final String PHONE_NUMBER = data.get(position).getNumber();
 
-        vh.name.setText(data.get(position).getName());
+        vh.name.setText("#" + (position + 1) + " " + data.get(position).getName());
         vh.number.setText(data.get(position).getNumber());
 
         readMessage(PHONE_NUMBER);
@@ -178,6 +180,30 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     if (TextUtils.equals(type, "sms_receive") && holder instanceof PhoneVH) {
                         readMessage(data.get(position).getNumber());
                         Log.e("Method :: ", "onBindViewHolder(holder, position, payloads) is called");
+                        final PhoneVH vh = (PhoneVH) holder;
+
+                        for (int k = 0; k < 10; k++) {
+                            vh.message_log_layout[k].setVisibility(View.VISIBLE);
+                        }
+
+                        if (message_list.size() < 10) {
+                            for (int k = message_list.size(); k < 10; k++) {
+                                vh.message_log_layout[k].setVisibility(View.GONE);
+                            }
+                            for (int k = 0; k < message_list.size(); k++) {
+                                vh.message_log_content[k].setText(message_list.get(k).getBody());
+                                vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
+                            }
+                        } else {
+                            for (int k = 0; k < 10; k++) {
+                                vh.message_log_content[k].setText(message_list.get(k).getBody());
+                                vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
+                            }
+                        }
+                    } else if (TextUtils.equals(type, "test") && holder instanceof PhoneVH) {
+                        readMessage(data.get(position).getNumber());
+                        Log.e("Method :: ", "onBindViewHolder(holder, position, payloads) is called");
+                        Toast.makeText(context, "test message received", Toast.LENGTH_LONG).show();
                         final PhoneVH vh = (PhoneVH) holder;
 
                         for (int k = 0; k < 10; k++) {

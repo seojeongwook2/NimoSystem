@@ -5,24 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="10dp"
-    >
+    android:layout_margin="10dp">
 
 
     <TextView
         android:id="@+id/type"
-        android:layout_weight="1"
-        android:text="로그인 타입"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        />
+        android:layout_weight="1"
+        android:text="로그인 타입"
+        android:textColor="@color/text_black"
+        android:fontFamily="@font/maplestorylight"/>
 
     <TextView
         android:id="@+id/time"
-        android:layout_weight="1"
-        android:text="시간"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
-        />
+        android:layout_weight="1"
+        android:text="시간"
+        android:textColor="@color/text_black"
+        android:fontFamily="@font/maplestorylight"/>
 </LinearLayout>

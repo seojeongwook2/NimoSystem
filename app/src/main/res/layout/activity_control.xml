@@ -11,9 +11,7 @@
         android:id="@+id/login_history_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_margin="5dp"
         android:fontFamily="@font/maplestorylight"
         android:text="로그인 기록"
         app:layout_constraintEnd_toStartOf="@+id/add_button"
@@ -40,6 +38,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/prev_page_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:fontFamily="@font/maplestorylight"
+        android:text="이전 페이지"
+        app:layout_constraintEnd_toStartOf="@+id/login_history_button"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,13 +55,14 @@
         android:layout_margin="5dp"
         android:fontFamily="@font/maplestorylight"
         app:layout_constraintEnd_toStartOf="@+id/next_page_button"
-
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="@dimen/nimo_system_image_width"
         android:layout_height="@dimen/nimo_system_image_height"
+        android:layout_marginHorizontal="@dimen/item_phone_basic_margin"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/nimo_system_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -62,7 +71,8 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:layout_marginHorizontal="@dimen/item_phone_basic_margin"
+        android:layout_marginVertical="10dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

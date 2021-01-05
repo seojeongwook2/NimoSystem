@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ManageActivity"
-    android:id="@+id/external_layout"
-    >
+    android:id="@+id/external_layout">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -16,39 +15,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:layout_margin="@dimen/item_phone_basic_margin"
+            android:fontFamily="@font/maplestorylight"
+            android:hint="이름" />
+
+        <EditText
+            android:id="@+id/number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:inputType="number"
+            android:layout_margin="@dimen/item_phone_basic_margin"
+            android:fontFamily="@font/maplestorylight"
+            android:hint="번호" />
+
         <Button
             android:id="@+id/insert_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="삽입" />
+            android:layout_margin="@dimen/item_phone_basic_margin"
+            android:fontFamily="@font/maplestorylight"
+            android:text="입력하기" />
 
         <Button
             android:id="@+id/confirm_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="확인"
-
-            />
-
-        <EditText
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="이름" />
-
-        <EditText
-            android:id="@+id/number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="번호" />
+            android:layout_margin="@dimen/item_phone_basic_margin"
+            android:fontFamily="@font/maplestorylight"
+            android:text="수정완료" />
 
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        tools:layout_editor_absoluteX="0dp" />
-
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/item_phone_basic_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

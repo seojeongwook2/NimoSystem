@@ -22,14 +22,10 @@ public class LoginHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_history);
-
-
         recyclerView= findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-
         showDatabase();
-
     }
 
 
@@ -41,9 +37,15 @@ public class LoginHistoryActivity extends AppCompatActivity {
         while(isCursor.moveToNext()){
             String tempId = isCursor.getString(isCursor.getColumnIndex("_id"));
             String tempTime = isCursor.getString(isCursor.getColumnIndex("time"));
-            tempTime = "로그인 시간:" + tempTime;
+            tempTime = "로그인 시간 : " + tempTime;
             String tempType =isCursor.getString(isCursor.getColumnIndex("type"));
-            tempType = "로그인 타입:" + tempType;
+
+            if(tempType.equals("0")) {
+                tempType = "로그인 타입 : 관리자";
+            } else {
+                tempType = "로그인 타입 : 사용자";
+            }
+
             list.add(new LoginItem(tempTime,tempType));
         }
         recyclerView.setAdapter(new LoginAdapter(getApplicationContext(),list));

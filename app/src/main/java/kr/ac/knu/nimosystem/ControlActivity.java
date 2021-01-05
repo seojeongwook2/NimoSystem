@@ -32,8 +32,8 @@ public class ControlActivity extends AppCompatActivity {
     private static final int CHANGE_REQUEST = 892;
     private String login_type = "";
     private Button all_control_button;
-    private Button next_page_button;
-    private Button add_button,login_his_button;
+    private Button next_page_button, prev_page_button;
+    private Button add_button, login_his_button;
     private RecyclerView recyclerView;
     private ArrayList<PhoneItem> list;
     private Context context;
@@ -49,20 +49,20 @@ public class ControlActivity extends AppCompatActivity {
         setContentView(R.layout.activity_control);
 
 
-
         init();
     }
 
     private void init() {
         context = this;
 
-        mDbOpenHelper =  new DbOpenHelper(this);
+        mDbOpenHelper = new DbOpenHelper(this);
         mDbOpenHelper.open();
 
 
         login_type = getIntent().getExtras().getString("LOGIN_TYPE");
         all_control_button = findViewById(R.id.all_control_button);
         next_page_button = findViewById(R.id.next_page_button);
+        prev_page_button = findViewById(R.id.prev_page_button);
         add_button = findViewById(R.id.add_button);
         login_his_button = findViewById(R.id.login_history_button);
 
@@ -131,33 +131,52 @@ public class ControlActivity extends AppCompatActivity {
         next_page_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                int itemTotalCount = recyclerView.getAdapter().getItemCount() - 1;
 
+                if(lastVisibleItemPosition == itemTotalCount) {
+                    return;
+                } else {
+                    recyclerView.smoothScrollToPosition(lastVisibleItemPosition + 1);
+                }
+            }
+        });
+
+        prev_page_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                int itemTotalCount = recyclerView.getAdapter().getItemCount() - 1;
+
+                if(lastVisibleItemPosition == 0) {
+                    return;
+                } else {
+                    recyclerView.smoothScrollToPosition(lastVisibleItemPosition - 1);
+                }
             }
         });
 
         login_his_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),LoginHistoryActivity.class));
+                startActivity(new Intent(getApplicationContext(), LoginHistoryActivity.class));
             }
         });
 
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ControlActivity.this,ManageActivity.class);
-                startActivityForResult(intent,CHANGE_REQUEST);
-
-
+                Intent intent = new Intent(ControlActivity.this, ManageActivity.class);
+                startActivityForResult(intent, CHANGE_REQUEST);
             }
         });
     }
 
-    private void processIntent(Intent intent){
-        if(intent != null){
+    private void processIntent(Intent intent) {
+        if (intent != null) {
             String string = intent.getStringExtra("string");
             // Toast.makeText(ControlActivity.this, string, Toast.LENGTH_LONG).show();
-            refresh_list();
+            refresh_list(string);
         }
     }
 
@@ -175,11 +194,11 @@ public class ControlActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     SmsManager smsManager = SmsManager.getDefault();
-                    for(int k = 0; k < list.size(); k++) {
+                    for (int k = 0; k < list.size(); k++) {
                         smsManager.sendTextMessage(list.get(k).getNumber(), null, body, null, null);
                         Toast.makeText(ControlActivity.this, list.get(k).getName() + " 으로 전송 완료했습니다.", Toast.LENGTH_LONG).show();
                     }
-                    refresh_list();
+                    refresh_list(null);
                 }
             });
 
@@ -192,13 +211,13 @@ public class ControlActivity extends AppCompatActivity {
 
             androidx.appcompat.app.AlertDialog alertDialog = builder.create();
             alertDialog.show();
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.e("send message error", e.getMessage());
             Toast.makeText(ControlActivity.this, "전송 실패, 다시 시도 하세요.", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void refresh_list() {
+    private void refresh_list(final String received_content) {
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -207,12 +226,21 @@ public class ControlActivity extends AppCompatActivity {
 
                 final PhoneAdapter adapter = new PhoneAdapter(ControlActivity.this, list);
 
-                adapter.setSendInterface(new PhoneAdapter.SendInterface() {
-                    @Override
-                    public void onSignal(int position) {
-                        adapter.notifyItemChanged(position, "sms_receive");
-                    }
-                });
+                if(received_content == null) {
+                    adapter.setSendInterface(new PhoneAdapter.SendInterface() {
+                        @Override
+                        public void onSignal(int position) {
+                            adapter.notifyItemChanged(position, "sms_receive");
+                        }
+                    });
+                } else {
+                    adapter.setSendInterface(new PhoneAdapter.SendInterface() {
+                        @Override
+                        public void onSignal(int position) {
+                            adapter.notifyItemChanged(position, received_content);
+                        }
+                    });
+                }
 
                 recyclerView.setAdapter(adapter);
             }
@@ -220,31 +248,25 @@ public class ControlActivity extends AppCompatActivity {
     }
 
 
-    private void showDatabase(){
-
+    private void showDatabase() {
         Cursor isCursor = mDbOpenHelper.sortColumn_info();
         list.clear();
-        while(isCursor.moveToNext()){
+        while (isCursor.moveToNext()) {
             //String tempId = isCursor.getString(isCursor.getColumnIndex("_id"));
             String tempName = isCursor.getString(isCursor.getColumnIndex("name"));
-            String tempNumber =isCursor.getString(isCursor.getColumnIndex("number"));
-            list.add(new PhoneItem(tempNumber,tempName));
+            String tempNumber = isCursor.getString(isCursor.getColumnIndex("number"));
+            list.add(new PhoneItem(tempNumber, tempName));
         }
     }
-
-
-
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode != RESULT_OK)return;
-        if(requestCode == CHANGE_REQUEST){
-            refresh_list();
+        if (resultCode != RESULT_OK) return;
+        if (requestCode == CHANGE_REQUEST) {
+            refresh_list(null);
         }
-
     }
-
 }

@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
+    android:layout_margin="@dimen/item_phone_basic_margin"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#30000000"
-    >
+    android:background="#30000000">
 
     <Button
         android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="삭제"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/maplestorylight"
+        android:text="목록에서 삭제"
+        android:layout_margin="@dimen/item_phone_basic_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/maplestorylight"
         android:hint="name"
-        android:padding="10dp"
-        app:layout_constraintStart_toEndOf="@+id/delete"
+        android:textColor="@color/text_black"
+        android:layout_margin="@dimen/item_phone_basic_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
