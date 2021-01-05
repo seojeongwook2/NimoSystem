@@ -51,6 +51,7 @@ public class PopupActivity extends Activity {
 
     }
 
+
     void sendFunction(){
 
         for(int i=0;i<editTextArrayList.size();i++){
@@ -73,6 +74,8 @@ public class PopupActivity extends Activity {
     //확인 버튼 클릭
     public void mOnSend(View v){
         sendFunction();
+        Intent intent= new Intent();
+        setResult(RESULT_OK,intent);
         finish();
     }
 

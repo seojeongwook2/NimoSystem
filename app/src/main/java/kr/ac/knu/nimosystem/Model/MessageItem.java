@@ -10,10 +10,11 @@ public class MessageItem implements Serializable {
     private String contactId_string;
     private String timestamp;
     private String body;
+    private String type;
 
     public MessageItem() { }
 
-    public MessageItem(String messageId, String threadId, String address, String contactId, String contactId_string, String timestamp, String body) {
+    public MessageItem(String messageId, String threadId, String address, String contactId, String contactId_string, String timestamp, String body, String type) {
         this.messageId = messageId;
         this.threadId = threadId;
         this.address = address;
@@ -21,6 +22,7 @@ public class MessageItem implements Serializable {
         this.contactId_string = contactId_string;
         this.timestamp = timestamp;
         this.body = body;
+        this.type = type;
     }
 
     public String getMessageId() {
@@ -77,5 +79,13 @@ public class MessageItem implements Serializable {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

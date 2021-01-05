@@ -91,6 +91,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         for (int k = 0; k < 10; k++) {
             vh.message_log_layout[k].setVisibility(View.VISIBLE);
+            vh.message_log_content[k].setTextColor(Color.BLACK);
         }
 
         if (message_list.size() < 10) {
@@ -100,11 +101,19 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             for (int k = 0; k < message_list.size(); k++) {
                 vh.message_log_content[k].setText(message_list.get(k).getBody());
                 vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
+
+                if(message_list.get(k).getType().equals("1")) {
+                    vh.message_log_content[k].setTextColor(Color.BLUE);
+                }
             }
         } else {
             for (int k = 0; k < 10; k++) {
                 vh.message_log_content[k].setText(message_list.get(k).getBody());
                 vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
+
+                if(message_list.get(k).getType().equals("1")) {
+                    vh.message_log_content[k].setTextColor(Color.BLUE);
+                }
             }
         }
 
@@ -221,6 +230,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                         for (int k = 0; k < 10; k++) {
                             vh.message_log_layout[k].setVisibility(View.VISIBLE);
+                            vh.message_log_content[k].setTextColor(Color.BLACK);
                         }
 
                         if (message_list.size() < 10) {
@@ -230,11 +240,19 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                             for (int k = 0; k < message_list.size(); k++) {
                                 vh.message_log_content[k].setText(message_list.get(k).getBody());
                                 vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
+
+                                if(message_list.get(k).getType().equals("1")) {
+                                    vh.message_log_content[k].setTextColor(Color.BLUE);
+                                }
                             }
                         } else {
                             for (int k = 0; k < 10; k++) {
                                 vh.message_log_content[k].setText(message_list.get(k).getBody());
                                 vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
+
+                                if(message_list.get(k).getType().equals("1")) {
+                                    vh.message_log_content[k].setTextColor(Color.BLUE);
+                                }
                             }
                         }
 
@@ -271,6 +289,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                         for (int k = 0; k < 10; k++) {
                             vh.message_log_layout[k].setVisibility(View.VISIBLE);
+                            vh.message_log_content[k].setTextColor(Color.BLACK);
                         }
 
                         if (message_list.size() < 10) {
@@ -280,11 +299,19 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                             for (int k = 0; k < message_list.size(); k++) {
                                 vh.message_log_content[k].setText(message_list.get(k).getBody());
                                 vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
+
+                                if(message_list.get(k).getType().equals("1")) {
+                                    vh.message_log_content[k].setTextColor(Color.BLUE);
+                                }
                             }
                         } else {
                             for (int k = 0; k < 10; k++) {
                                 vh.message_log_content[k].setText(message_list.get(k).getBody());
                                 vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
+
+                                if(message_list.get(k).getType().equals("1")) {
+                                    vh.message_log_content[k].setTextColor(Color.BLUE);
+                                }
                             }
                         }
 
@@ -375,9 +402,22 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         Uri allMessage = Uri.parse("content://sms");
         ContentResolver cr = context.getContentResolver();
-        Cursor c = cr.query(allMessage, new String[]{"_id", "thread_id", "address", "person", "date", "body"}, null, null, "date DESC");
+        Cursor c = cr.query(allMessage, new String[]{"_id", "thread_id", "address", "person", "date", "body", "type"},
+                null, null, "date DESC");
+
+        // int columns = c.getColumnCount();
 
         while (c.moveToNext()) {
+            /* MessageItem 내용 확인.
+            String log_message = "";
+            for(int i = 0; i < columns; i++) {
+                log_message += c.getColumnName(i) ;
+                log_message += " : ";
+                log_message += c.getString(i);
+                log_message += "\n";
+            }
+            Log.e("ttt", log_message);
+             */
             MessageItem item = new MessageItem(
                     Long.toString(c.getLong(0)),
                     Long.toString(c.getLong(1)),
@@ -385,7 +425,8 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     Long.toString(c.getLong(3)),
                     String.valueOf(c.getLong(3)),
                     makeTimeStamp(c.getLong(4)),
-                    c.getString(5)
+                    c.getString(5),
+                    c.getString(6)
             );
 
             if (item.getAddress().equals(phone_n)) {

@@ -100,7 +100,7 @@ public class ControlActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ControlActivity.this, PopupActivity.class);
                 intent.putExtra("data", list);
-                startActivity(intent);
+                startActivityForResult(intent,1004);
             }
         });
 
@@ -243,6 +243,8 @@ public class ControlActivity extends AppCompatActivity {
 
         if (resultCode != RESULT_OK) return;
         if (requestCode == CHANGE_REQUEST) {
+            refresh_list(null);
+        }else if(requestCode == 1004){
             refresh_list(null);
         }
     }
