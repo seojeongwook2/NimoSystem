@@ -281,65 +281,6 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                             vh.name.setTextColor(Color.BLACK);
                             vh.name.clearAnimation();
                         }
-                    } else if (TextUtils.equals(type, "test") && holder instanceof PhoneVH) {
-                        readMessage(data.get(position).getNumber());
-                        Log.e("Method :: ", "onBindViewHolder(holder, position, payloads) is called");
-                        Toast.makeText(context, "test message received", Toast.LENGTH_LONG).show();
-                        final PhoneVH vh = (PhoneVH) holder;
-
-                        for (int k = 0; k < 10; k++) {
-                            vh.message_log_layout[k].setVisibility(View.VISIBLE);
-                            vh.message_log_content[k].setTextColor(Color.BLACK);
-                        }
-
-                        if (message_list.size() < 10) {
-                            for (int k = message_list.size(); k < 10; k++) {
-                                vh.message_log_layout[k].setVisibility(View.GONE);
-                            }
-                            for (int k = 0; k < message_list.size(); k++) {
-                                vh.message_log_content[k].setText(message_list.get(k).getBody());
-                                vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
-
-                                if (message_list.get(k).getType().equals("1")) {
-                                    vh.message_log_content[k].setTextColor(Color.BLUE);
-                                }
-                            }
-                        } else {
-                            for (int k = 0; k < 10; k++) {
-                                vh.message_log_content[k].setText(message_list.get(k).getBody());
-                                vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
-
-                                if (message_list.get(k).getType().equals("1")) {
-                                    vh.message_log_content[k].setTextColor(Color.BLUE);
-                                }
-                            }
-                        }
-
-                        if (check_impeller_rotate(data.get(position).getNumber())) {
-                            vh.impeller_rotate_status.setVisibility(View.VISIBLE);
-                            Animation animation = new AlphaAnimation(1, 0);
-                            animation.setDuration(1000);
-                            animation.setInterpolator(new LinearInterpolator());
-                            animation.setRepeatCount(Animation.INFINITE);
-                            animation.setRepeatMode(Animation.REVERSE);
-                            vh.impeller_rotate_status.startAnimation(animation);
-                        } else {
-                            vh.impeller_rotate_status.setVisibility(View.GONE);
-                            vh.impeller_rotate_status.clearAnimation();
-                        }
-
-                        if (check_level_status(data.get(position).getNumber())) {
-                            vh.name.setTextColor(Color.RED);
-                            Animation animation = new AlphaAnimation(1, 0);
-                            animation.setDuration(1000);
-                            animation.setInterpolator(new LinearInterpolator());
-                            animation.setRepeatCount(Animation.INFINITE);
-                            animation.setRepeatMode(Animation.REVERSE);
-                            vh.name.startAnimation(animation);
-                        } else {
-                            vh.name.setTextColor(Color.BLACK);
-                            vh.name.clearAnimation();
-                        }
                     }
                 }
             }
@@ -378,7 +319,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         public void run() {
                             sendInterface.onSignal(pos);
                         }
-                    }, 1000);
+                    }, 300);
                 }
             });
 

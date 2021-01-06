@@ -203,25 +203,16 @@ public class ControlActivity extends AppCompatActivity {
 
                 final PhoneAdapter adapter = new PhoneAdapter(ControlActivity.this, list);
 
-                if (received_content == null) {
-                    adapter.setSendInterface(new PhoneAdapter.SendInterface() {
-                        @Override
-                        public void onSignal(int position) {
-                            adapter.notifyItemChanged(position, "sms_receive");
-                        }
-                    });
-                } else {
-                    adapter.setSendInterface(new PhoneAdapter.SendInterface() {
-                        @Override
-                        public void onSignal(int position) {
-                            adapter.notifyItemChanged(position, received_content);
-                        }
-                    });
-                }
+                adapter.setSendInterface(new PhoneAdapter.SendInterface() {
+                    @Override
+                    public void onSignal(int position) {
+                        adapter.notifyItemChanged(position, "sms_receive");
+                    }
+                });
 
                 recyclerView.setAdapter(adapter);
             }
-        }, 1000);
+        }, 300);
     }
 
 
