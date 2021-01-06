@@ -31,15 +31,15 @@ public class LoginAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = null;
-        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.item_login_history,parent,false);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        view = inflater.inflate(R.layout.item_login_history, parent, false);
         HistoryViewHolder historyViewHolder = new HistoryViewHolder(view);
         return historyViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        HistoryViewHolder historyViewHolder =(HistoryViewHolder)holder;
+        HistoryViewHolder historyViewHolder = (HistoryViewHolder) holder;
         historyViewHolder.time.setText(list.get(position).getTime());
         historyViewHolder.type.setText(list.get(position).getType());
     }
@@ -50,9 +50,10 @@ public class LoginAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-    private class HistoryViewHolder extends RecyclerView.ViewHolder{
+    private class HistoryViewHolder extends RecyclerView.ViewHolder {
         TextView time;
         TextView type;
+
         public HistoryViewHolder(@NonNull View itemView) {
             super(itemView);
 

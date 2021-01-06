@@ -24,14 +24,14 @@ public class ManageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private ArrayList<PhoneItem> list;
     private DbOpenHelper mDbOpenHelper;
 
-    private OnDeleteClickListener mListener = null ;
+    private OnDeleteClickListener mListener = null;
 
     public interface OnDeleteClickListener {
-        void onDeleteClick(PhoneItem deleteItem) ;
+        void onDeleteClick(PhoneItem deleteItem);
     }
 
     public void setOnItemClickListener(OnDeleteClickListener listener) {
-        this.mListener = listener ;
+        this.mListener = listener;
     }
 
     public ManageAdapter(Context context, ArrayList<PhoneItem> list) {
@@ -50,8 +50,8 @@ public class ManageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ManagementViewHolder managementViewHolder = (ManagementViewHolder)holder;
-        managementViewHolder.name.setText(list.get(position).getName()+"\n" + list.get(position).getNumber());
+        ManagementViewHolder managementViewHolder = (ManagementViewHolder) holder;
+        managementViewHolder.name.setText(list.get(position).getName() + "\n" + list.get(position).getNumber());
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ManageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return list.size();
     }
 
-    private class ManagementViewHolder extends RecyclerView.ViewHolder{
+    private class ManagementViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         Button delete;
 
@@ -69,16 +69,16 @@ public class ManageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             delete = itemView.findViewById(R.id.delete);
 
 
-           delete.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   int position = getAdapterPosition();
-                   if(getAdapterPosition() !=RecyclerView.NO_POSITION){
-                       mListener.onDeleteClick(list.get(position));
-                   }
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (getAdapterPosition() != RecyclerView.NO_POSITION) {
+                        mListener.onDeleteClick(list.get(position));
+                    }
 
-               }
-           });
+                }
+            });
         }
     }
 
