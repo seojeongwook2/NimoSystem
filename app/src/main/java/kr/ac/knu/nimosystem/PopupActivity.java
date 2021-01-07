@@ -48,6 +48,15 @@ public class PopupActivity extends Activity {
         cancel_button = findViewById(R.id.cancel_button);
         send_button = findViewById(R.id.send_button);
 
+        ArrayList<String> button_name_arrayList = new ArrayList<>();
+        button_name_arrayList.add(0,"PUMP1");
+        button_name_arrayList.add(1,"PUMP2");
+        button_name_arrayList.add(2,"PUMP3");
+        button_name_arrayList.add(3,"가동중지");
+        button_name_arrayList.add(4,"EOCR 리셋");
+
+
+
         for (int i = 0; i < data.size(); i++) {
             TextView tmpTextView = new TextView(this);
             textViewArrayList.add(i, tmpTextView);
@@ -58,7 +67,7 @@ public class PopupActivity extends Activity {
                 tmpTextView.setTypeface(getResources().getFont(R.font.maplestorylight));
             }
 
-            EditText tmpEditText = new EditText(this);
+            final EditText tmpEditText = new EditText(this);
             tmpEditText.setHint("위 번호로 전송할 명령을 입력하세요.");
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -66,8 +75,93 @@ public class PopupActivity extends Activity {
             }
 
             editTextArrayList.add(i, tmpEditText);
-            add_layout.addView(tmpTextView);
-            add_layout.addView(tmpEditText);
+
+
+            // 안쪽 하나의 Vertical layout 각각에 번호 ,  Horizontal layout (버튼 5개) ,입력창이 배치됨
+            LinearLayout inner_vertical_layout = new LinearLayout(getApplicationContext());
+
+            inner_vertical_layout.setOrientation(LinearLayout.VERTICAL);
+
+
+            // Horizontal layout 내부에 버튼 5개 들어감
+            LinearLayout button_horizontal_layout = new LinearLayout(getApplicationContext());
+            button_horizontal_layout.setOrientation(LinearLayout.HORIZONTAL);
+
+            //버튼 5개 생성
+            Button button_pump1 = new Button(getApplicationContext());
+            Button button_pump2 = new Button(getApplicationContext());
+            Button button_pump3 = new Button(getApplicationContext());
+            Button button_stop = new Button(getApplicationContext());
+            Button button_reset = new Button(getApplicationContext());
+
+            button_pump1.setText("PUMP1");
+            button_pump2.setText("PUMP2");
+            button_pump3.setText("PUMP3");
+            button_stop.setText("가동중지");
+            button_reset.setText("EOCR 리셋");
+
+            // horizontal layout에 버튼 추가
+            button_horizontal_layout.addView(button_pump1);
+            button_horizontal_layout.addView(button_pump2);
+            button_horizontal_layout.addView(button_pump3);
+            button_horizontal_layout.addView(button_stop);
+            button_horizontal_layout.addView(button_reset);
+
+
+            //가장 아래 레이아웃 구분을 위한 라인
+            LinearLayout.LayoutParams params =
+                    new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                                3
+                            );
+
+            params.setMargins(0,60,0,60);
+
+            LinearLayout bottom_line = new LinearLayout(getApplicationContext());
+            bottom_line.setBackgroundColor(Color.BLACK);
+            if(i!=data.size()-1)
+            bottom_line.setLayoutParams(params);
+
+            //전체 vertical layout에 추가
+            inner_vertical_layout.addView(tmpTextView);
+            inner_vertical_layout.addView(button_horizontal_layout);
+            inner_vertical_layout.addView(tmpEditText);
+            inner_vertical_layout.addView(bottom_line);
+            add_layout.addView(inner_vertical_layout);
+
+
+            button_pump1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    tmpEditText.setText("PUMP1");
+                }
+            });
+
+            button_pump2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    tmpEditText.setText("PUMP2");
+                }
+            });
+            button_pump3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    tmpEditText.setText("PUMP3");
+                }
+            });
+            button_stop.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    tmpEditText.setText("0");
+                }
+            });
+            button_reset.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    tmpEditText.setText("7");
+                }
+            });
+
         }
         button_setting();
     }

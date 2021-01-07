@@ -25,6 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <!-- 팝업 Activity -->
         <activity android:name=".PopupActivity" android:theme="@android:style/Theme.Dialog" />
 
