@@ -32,6 +32,7 @@ public class ControlActivity extends AppCompatActivity {
     private static final int CHANGE_REQUEST = 892;
     private String login_type = "";
     private Button all_control_button;
+    private Button view_status;
     private Button next_page_button, prev_page_button;
     private Button add_button, login_his_button;
     private RecyclerView recyclerView;
@@ -58,9 +59,9 @@ public class ControlActivity extends AppCompatActivity {
         mDbOpenHelper = new DbOpenHelper(this);
         mDbOpenHelper.open();
 
-
         login_type = getIntent().getExtras().getString("LOGIN_TYPE");
         all_control_button = findViewById(R.id.all_control_button);
+        view_status = findViewById(R.id.view_status);
         next_page_button = findViewById(R.id.next_page_button);
         prev_page_button = findViewById(R.id.prev_page_button);
         add_button = findViewById(R.id.add_button);
@@ -99,6 +100,15 @@ public class ControlActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ControlActivity.this, PopupActivity.class);
+                intent.putExtra("data", list);
+                startActivityForResult(intent, 1004);
+            }
+        });
+
+        view_status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ControlActivity.this, StatusPopupActivity.class);
                 intent.putExtra("data", list);
                 startActivityForResult(intent, 1004);
             }

@@ -27,7 +27,8 @@
         </activity>
 
         <!-- 팝업 Activity -->
-        <activity android:name=".PopupActivity" android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".PopupActivity" android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name=".StatusPopupActivity" android:theme="@android:style/Theme.Dialog"/>
 
         <receiver
             android:name=".BroadcastReceiver.SMSReceiver"

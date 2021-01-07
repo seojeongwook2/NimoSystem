@@ -100,6 +100,14 @@ public class PopupActivity extends Activity {
             button_stop.setText("가동중지");
             button_reset.setText("EOCR 리셋");
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                button_pump1.setTypeface(getResources().getFont(R.font.maplestorylight));
+                button_pump2.setTypeface(getResources().getFont(R.font.maplestorylight));
+                button_pump3.setTypeface(getResources().getFont(R.font.maplestorylight));
+                button_stop.setTypeface(getResources().getFont(R.font.maplestorylight));
+                button_reset.setTypeface(getResources().getFont(R.font.maplestorylight));
+            }
+
             // horizontal layout에 버튼 추가
             button_horizontal_layout.addView(button_pump1);
             button_horizontal_layout.addView(button_pump2);

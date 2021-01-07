@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.telephony.SmsManager;
 import android.text.Layout;
@@ -43,6 +44,8 @@ import kr.ac.knu.nimosystem.Model.PhoneItem;
 import kr.ac.knu.nimosystem.R;
 import kr.ac.knu.nimosystem.ReadMessageActivity;
 import kr.ac.knu.nimosystem.SendMessageActivity;
+
+import static kr.ac.knu.nimosystem.R.font.maplestorylight;
 
 public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
@@ -120,7 +123,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (check_impeller_rotate(data.get(position).getNumber())) {
             vh.impeller_rotate_status.setVisibility(View.VISIBLE);
             Animation animation = new AlphaAnimation(1, 0);
-            animation.setDuration(1000);
+            animation.setDuration(300);
             animation.setInterpolator(new LinearInterpolator());
             animation.setRepeatCount(Animation.INFINITE);
             animation.setRepeatMode(Animation.REVERSE);
@@ -133,7 +136,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (check_level_status(data.get(position).getNumber())) {
             vh.name.setTextColor(Color.RED);
             Animation animation = new AlphaAnimation(1, 0);
-            animation.setDuration(1000);
+            animation.setDuration(300);
             animation.setInterpolator(new LinearInterpolator());
             animation.setRepeatCount(Animation.INFINITE);
             animation.setRepeatMode(Animation.REVERSE);
@@ -154,6 +157,12 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private TextView[] message_log_content = new TextView[10];
         private TextView[] message_log_time = new TextView[10];
         private ImageView impeller_rotate_status;
+
+        private Button pump_1_button;
+        private Button pump_2_button;
+        private Button pump_3_button;
+        private Button stop_button;
+        private Button reset_button;
 
         public PhoneVH(@NonNull View itemView) {
             super(itemView);
@@ -204,11 +213,59 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             message_log_content[9] = itemView.findViewById(R.id.message_log_content_9);
             message_log_time[9] = itemView.findViewById(R.id.message_log_time_9);
 
+            for (int i = 0; i < 10; i++) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    message_log_content[i].setTypeface(context.getResources().getFont(maplestorylight));
+                    message_log_time[i].setTypeface(context.getResources().getFont(maplestorylight));
+                }
+            }
+
             send_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     String content = message_body.getText().toString();
                     sendMessage(data.get(getAdapterPosition()).getNumber(), content, getAdapterPosition());
+                }
+            });
+
+            pump_1_button = itemView.findViewById(R.id.pump_1_button);
+            pump_2_button = itemView.findViewById(R.id.pump_2_button);
+            pump_3_button = itemView.findViewById(R.id.pump_3_button);
+            stop_button = itemView.findViewById(R.id.stop_button);
+            reset_button = itemView.findViewById(R.id.reset_button);
+
+            pump_1_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    message_body.setText("PUMP1");
+                }
+            });
+
+            pump_2_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    message_body.setText("PUMP2");
+                }
+            });
+
+            pump_3_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    message_body.setText("PUMP3");
+                }
+            });
+
+            stop_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    message_body.setText("0");
+                }
+            });
+
+            reset_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    message_body.setText("7");
                 }
             });
         }
@@ -259,7 +316,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         if (check_impeller_rotate(data.get(position).getNumber())) {
                             vh.impeller_rotate_status.setVisibility(View.VISIBLE);
                             Animation animation = new AlphaAnimation(1, 0);
-                            animation.setDuration(1000);
+                            animation.setDuration(300);
                             animation.setInterpolator(new LinearInterpolator());
                             animation.setRepeatCount(Animation.INFINITE);
                             animation.setRepeatMode(Animation.REVERSE);
@@ -272,7 +329,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         if (check_level_status(data.get(position).getNumber())) {
                             vh.name.setTextColor(Color.RED);
                             Animation animation = new AlphaAnimation(1, 0);
-                            animation.setDuration(1000);
+                            animation.setDuration(300);
                             animation.setInterpolator(new LinearInterpolator());
                             animation.setRepeatCount(Animation.INFINITE);
                             animation.setRepeatMode(Animation.REVERSE);

@@ -21,9 +21,9 @@
 
             <ImageView
                 android:id="@+id/impeller_rotate_status"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_margin="@dimen/item_phone_basic_margin"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="7dp"
                 android:background="@drawable/pink_circle"
                 android:elevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,58 @@
                 android:textColor="@color/text_black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/message_body" />
+                app:layout_constraintTop_toBottomOf="@+id/button_layout" />
+
+            <LinearLayout
+                android:id="@+id/button_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="@dimen/item_phone_basic_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/message_body">
+
+                <Button
+                    android:id="@+id/pump_1_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="PUMP1"
+                    android:fontFamily="@font/maplestorylight"/>
+
+                <Button
+                    android:id="@+id/pump_2_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="PUMP2"
+                    android:fontFamily="@font/maplestorylight"/>
+
+                <Button
+                    android:id="@+id/pump_3_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="PUMP3"
+                    android:fontFamily="@font/maplestorylight"/>
+
+                <Button
+                    android:id="@+id/stop_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="가동중지"
+                    android:fontFamily="@font/maplestorylight"/>
+
+                <Button
+                    android:id="@+id/reset_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="EOCR 리셋"
+                    android:fontFamily="@font/maplestorylight"/>
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/message_body"
