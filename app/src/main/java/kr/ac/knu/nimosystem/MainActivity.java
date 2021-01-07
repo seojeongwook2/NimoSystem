@@ -38,11 +38,11 @@ public class MainActivity extends AppCompatActivity {
         login_code = findViewById(R.id.login_code);
         login_button = findViewById(R.id.login_button);
 
-        mDbOpenHelper =  new DbOpenHelper(this);
+        mDbOpenHelper = new DbOpenHelper(this);
         mDbOpenHelper.open();
         mDbOpenHelper.create();
 
-       // showDatabase();
+        // showDatabase();
         button_setting();
     }
 
@@ -52,30 +52,30 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String get_code = login_code.getText().toString();
 
-                if(get_code.equals(getResources().getString(R.string.management_code))) {
+                if (get_code.equals(getResources().getString(R.string.management_code))) {
                     // login code 에서 management code 와 일치 시
                     Intent intent = new Intent(MainActivity.this, ControlActivity.class);
                     intent.putExtra("LOGIN_TYPE", "0");
                     startActivity(intent);
-                    setLogin_history(makeTimeStamp(System.currentTimeMillis()),"0");
-                } else if(get_code.equals(getResources().getString(R.string.user_1_code))) {
+                    setLogin_history(makeTimeStamp(System.currentTimeMillis()), "0");
+                } else if (get_code.equals(getResources().getString(R.string.user_1_code))) {
                     // 1번 user
                     Intent intent = new Intent(MainActivity.this, ControlActivity.class);
                     intent.putExtra("LOGIN_TYPE", "1");
                     startActivity(intent);
-                    setLogin_history(makeTimeStamp(System.currentTimeMillis()),"1");
-                } else if(get_code.equals(getResources().getString(R.string.user_2_code))) {
+                    setLogin_history(makeTimeStamp(System.currentTimeMillis()), "1");
+                } else if (get_code.equals(getResources().getString(R.string.user_2_code))) {
                     // 2번 user
                     Intent intent = new Intent(MainActivity.this, ControlActivity.class);
                     intent.putExtra("LOGIN_TYPE", "2");
                     startActivity(intent);
-                    setLogin_history(makeTimeStamp(System.currentTimeMillis()),"2");
-                } else if(get_code.equals(getResources().getString(R.string.user_3_code))) {
+                    setLogin_history(makeTimeStamp(System.currentTimeMillis()), "2");
+                } else if (get_code.equals(getResources().getString(R.string.user_3_code))) {
                     // 3번 user
                     Intent intent = new Intent(MainActivity.this, ControlActivity.class);
                     intent.putExtra("LOGIN_TYPE", "3");
                     startActivity(intent);
-                    setLogin_history(makeTimeStamp(System.currentTimeMillis()),"3");
+                    setLogin_history(makeTimeStamp(System.currentTimeMillis()), "3");
                 } else {
                     final View external_layout = findViewById(R.id.external_layout);
                     final Snackbar snackbar = Snackbar.make(external_layout, "로그인 코드와 일치하지 않습니다.",
@@ -93,35 +93,34 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void check_permission(){
-        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED ||
+    private void check_permission() {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED ||
-                    ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+                ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS}, 1001);
         }
     }
 
 
-    private void showDatabase(){
+    private void showDatabase() {
         Cursor isCursor = mDbOpenHelper.sortColumn_login();
 
-        while(isCursor.moveToNext()){
+        while (isCursor.moveToNext()) {
             String tempId = isCursor.getString(isCursor.getColumnIndex("_id"));
             String tempTime = isCursor.getString(isCursor.getColumnIndex("time"));
-            String tempType =isCursor.getString(isCursor.getColumnIndex("type"));
-            Log.e("MainActivity",tempTime);
+            String tempType = isCursor.getString(isCursor.getColumnIndex("type"));
+            Log.e("MainActivity", tempTime);
         }
 
     }
 
 
-    private void setLogin_history(String time, String type){
+    private void setLogin_history(String time, String type) {
         mDbOpenHelper.open();
-        mDbOpenHelper.insertColumn_login(time,type);
-       // showDatabase();
+        mDbOpenHelper.insertColumn_login(time, type);
+        // showDatabase();
     }
-
 
 
     private String makeTimeStamp(long in) {

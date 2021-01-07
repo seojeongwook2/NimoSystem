@@ -54,7 +54,7 @@ public class ReadMessageActivity extends AppCompatActivity {
         data.clear();
         Uri allMessage = Uri.parse("content://sms");
         ContentResolver cr = getContentResolver();
-        Cursor c = cr.query(allMessage, new String[] { "_id", "thread_id", "address", "person", "date", "body" }, null, null, "date DESC");
+        Cursor c = cr.query(allMessage, new String[] { "_id", "thread_id", "address", "person", "date", "body", "type" }, null, null, "date DESC");
 
         while (c.moveToNext()) {
             MessageItem item = new MessageItem(
@@ -64,7 +64,8 @@ public class ReadMessageActivity extends AppCompatActivity {
                     Long.toString(c.getLong(3)),
                     String.valueOf(c.getLong(3)),
                     makeTimeStamp(c.getLong(4)),
-                    c.getString(5)
+                    c.getString(5),
+                    c.getString(6)
             );
 
             if(item.getAddress().equals(number)) {

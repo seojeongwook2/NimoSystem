@@ -100,7 +100,7 @@ public class ControlActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ControlActivity.this, PopupActivity.class);
                 intent.putExtra("data", list);
-                startActivity(intent);
+                startActivityForResult(intent, 1004);
             }
         });
 
@@ -110,7 +110,7 @@ public class ControlActivity extends AppCompatActivity {
                 int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 int itemTotalCount = recyclerView.getAdapter().getItemCount() - 1;
 
-                if(lastVisibleItemPosition == itemTotalCount) {
+                if (lastVisibleItemPosition == itemTotalCount) {
                     return;
                 } else {
                     recyclerView.smoothScrollToPosition(lastVisibleItemPosition + 1);
@@ -124,7 +124,7 @@ public class ControlActivity extends AppCompatActivity {
                 int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 int itemTotalCount = recyclerView.getAdapter().getItemCount() - 1;
 
-                if(lastVisibleItemPosition == 0) {
+                if (lastVisibleItemPosition == 0) {
                     return;
                 } else {
                     recyclerView.smoothScrollToPosition(lastVisibleItemPosition - 1);
@@ -203,25 +203,16 @@ public class ControlActivity extends AppCompatActivity {
 
                 final PhoneAdapter adapter = new PhoneAdapter(ControlActivity.this, list);
 
-                if(received_content == null) {
-                    adapter.setSendInterface(new PhoneAdapter.SendInterface() {
-                        @Override
-                        public void onSignal(int position) {
-                            adapter.notifyItemChanged(position, "sms_receive");
-                        }
-                    });
-                } else {
-                    adapter.setSendInterface(new PhoneAdapter.SendInterface() {
-                        @Override
-                        public void onSignal(int position) {
-                            adapter.notifyItemChanged(position, received_content);
-                        }
-                    });
-                }
+                adapter.setSendInterface(new PhoneAdapter.SendInterface() {
+                    @Override
+                    public void onSignal(int position) {
+                        adapter.notifyItemChanged(position, "sms_receive");
+                    }
+                });
 
                 recyclerView.setAdapter(adapter);
             }
-        }, 1000);
+        }, 300);
     }
 
 
@@ -243,6 +234,8 @@ public class ControlActivity extends AppCompatActivity {
 
         if (resultCode != RESULT_OK) return;
         if (requestCode == CHANGE_REQUEST) {
+            refresh_list(null);
+        } else if (requestCode == 1004) {
             refresh_list(null);
         }
     }

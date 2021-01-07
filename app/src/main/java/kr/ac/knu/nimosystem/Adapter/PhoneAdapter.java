@@ -84,13 +84,14 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         final PhoneVH vh = (PhoneVH) holder;
         final String PHONE_NUMBER = data.get(position).getNumber();
 
-        vh.name.setText("#" + (position + 1) + " " + data.get(position).getName());
+        vh.name.setText("#" + (position + 1) + " / " + data.size() + "   " + data.get(position).getName());
         vh.number.setText(data.get(position).getNumber());
 
         readMessage(PHONE_NUMBER);
 
         for (int k = 0; k < 10; k++) {
             vh.message_log_layout[k].setVisibility(View.VISIBLE);
+            vh.message_log_content[k].setTextColor(Color.BLACK);
         }
 
         if (message_list.size() < 10) {
@@ -100,15 +101,23 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             for (int k = 0; k < message_list.size(); k++) {
                 vh.message_log_content[k].setText(message_list.get(k).getBody());
                 vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
+
+                if (message_list.get(k).getType().equals("1")) {
+                    vh.message_log_content[k].setTextColor(Color.BLUE);
+                }
             }
         } else {
             for (int k = 0; k < 10; k++) {
                 vh.message_log_content[k].setText(message_list.get(k).getBody());
                 vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
+
+                if (message_list.get(k).getType().equals("1")) {
+                    vh.message_log_content[k].setTextColor(Color.BLUE);
+                }
             }
         }
 
-        if(check_impeller_rotate(data.get(position).getNumber())) {
+        if (check_impeller_rotate(data.get(position).getNumber())) {
             vh.impeller_rotate_status.setVisibility(View.VISIBLE);
             Animation animation = new AlphaAnimation(1, 0);
             animation.setDuration(1000);
@@ -121,7 +130,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             vh.impeller_rotate_status.clearAnimation();
         }
 
-        if(check_level_status(data.get(position).getNumber())) {
+        if (check_level_status(data.get(position).getNumber())) {
             vh.name.setTextColor(Color.RED);
             Animation animation = new AlphaAnimation(1, 0);
             animation.setDuration(1000);
@@ -221,6 +230,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                         for (int k = 0; k < 10; k++) {
                             vh.message_log_layout[k].setVisibility(View.VISIBLE);
+                            vh.message_log_content[k].setTextColor(Color.BLACK);
                         }
 
                         if (message_list.size() < 10) {
@@ -230,15 +240,23 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                             for (int k = 0; k < message_list.size(); k++) {
                                 vh.message_log_content[k].setText(message_list.get(k).getBody());
                                 vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
+
+                                if (message_list.get(k).getType().equals("1")) {
+                                    vh.message_log_content[k].setTextColor(Color.BLUE);
+                                }
                             }
                         } else {
                             for (int k = 0; k < 10; k++) {
                                 vh.message_log_content[k].setText(message_list.get(k).getBody());
                                 vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
+
+                                if (message_list.get(k).getType().equals("1")) {
+                                    vh.message_log_content[k].setTextColor(Color.BLUE);
+                                }
                             }
                         }
 
-                        if(check_impeller_rotate(data.get(position).getNumber())) {
+                        if (check_impeller_rotate(data.get(position).getNumber())) {
                             vh.impeller_rotate_status.setVisibility(View.VISIBLE);
                             Animation animation = new AlphaAnimation(1, 0);
                             animation.setDuration(1000);
@@ -251,57 +269,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                             vh.impeller_rotate_status.clearAnimation();
                         }
 
-                        if(check_level_status(data.get(position).getNumber())) {
-                            vh.name.setTextColor(Color.RED);
-                            Animation animation = new AlphaAnimation(1, 0);
-                            animation.setDuration(1000);
-                            animation.setInterpolator(new LinearInterpolator());
-                            animation.setRepeatCount(Animation.INFINITE);
-                            animation.setRepeatMode(Animation.REVERSE);
-                            vh.name.startAnimation(animation);
-                        } else {
-                            vh.name.setTextColor(Color.BLACK);
-                            vh.name.clearAnimation();
-                        }
-                    } else if (TextUtils.equals(type, "test") && holder instanceof PhoneVH) {
-                        readMessage(data.get(position).getNumber());
-                        Log.e("Method :: ", "onBindViewHolder(holder, position, payloads) is called");
-                        Toast.makeText(context, "test message received", Toast.LENGTH_LONG).show();
-                        final PhoneVH vh = (PhoneVH) holder;
-
-                        for (int k = 0; k < 10; k++) {
-                            vh.message_log_layout[k].setVisibility(View.VISIBLE);
-                        }
-
-                        if (message_list.size() < 10) {
-                            for (int k = message_list.size(); k < 10; k++) {
-                                vh.message_log_layout[k].setVisibility(View.GONE);
-                            }
-                            for (int k = 0; k < message_list.size(); k++) {
-                                vh.message_log_content[k].setText(message_list.get(k).getBody());
-                                vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
-                            }
-                        } else {
-                            for (int k = 0; k < 10; k++) {
-                                vh.message_log_content[k].setText(message_list.get(k).getBody());
-                                vh.message_log_time[k].setText(message_list.get(k).getTimestamp());
-                            }
-                        }
-
-                        if(check_impeller_rotate(data.get(position).getNumber())) {
-                            vh.impeller_rotate_status.setVisibility(View.VISIBLE);
-                            Animation animation = new AlphaAnimation(1, 0);
-                            animation.setDuration(1000);
-                            animation.setInterpolator(new LinearInterpolator());
-                            animation.setRepeatCount(Animation.INFINITE);
-                            animation.setRepeatMode(Animation.REVERSE);
-                            vh.impeller_rotate_status.startAnimation(animation);
-                        } else {
-                            vh.impeller_rotate_status.setVisibility(View.GONE);
-                            vh.impeller_rotate_status.clearAnimation();
-                        }
-
-                        if(check_level_status(data.get(position).getNumber())) {
+                        if (check_level_status(data.get(position).getNumber())) {
                             vh.name.setTextColor(Color.RED);
                             Animation animation = new AlphaAnimation(1, 0);
                             animation.setDuration(1000);
@@ -351,7 +319,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         public void run() {
                             sendInterface.onSignal(pos);
                         }
-                    }, 1000);
+                    }, 300);
                 }
             });
 
@@ -375,9 +343,22 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         Uri allMessage = Uri.parse("content://sms");
         ContentResolver cr = context.getContentResolver();
-        Cursor c = cr.query(allMessage, new String[]{"_id", "thread_id", "address", "person", "date", "body"}, null, null, "date DESC");
+        Cursor c = cr.query(allMessage, new String[]{"_id", "thread_id", "address", "person", "date", "body", "type"},
+                null, null, "date DESC");
+
+        // int columns = c.getColumnCount();
 
         while (c.moveToNext()) {
+            /* MessageItem 내용 확인.
+            String log_message = "";
+            for(int i = 0; i < columns; i++) {
+                log_message += c.getColumnName(i) ;
+                log_message += " : ";
+                log_message += c.getString(i);
+                log_message += "\n";
+            }
+            Log.e("ttt", log_message);
+             */
             MessageItem item = new MessageItem(
                     Long.toString(c.getLong(0)),
                     Long.toString(c.getLong(1)),
@@ -385,7 +366,8 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     Long.toString(c.getLong(3)),
                     String.valueOf(c.getLong(3)),
                     makeTimeStamp(c.getLong(4)),
-                    c.getString(5)
+                    c.getString(5),
+                    c.getString(6)
             );
 
             if (item.getAddress().equals(phone_n)) {
@@ -395,11 +377,10 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private boolean check_impeller_rotate(final String phone_n) {
-        for(MessageItem item : message_list) {
-            if(item.getBody().contains("-ON-")) {
+        for (MessageItem item : message_list) {
+            if (item.getBody().contains("-ON-")) {
                 return true;
-            }
-            else if(item.getBody().contains("-OFF-")) {
+            } else if (item.getBody().contains("-OFF-")) {
                 return false;
             }
         }
@@ -412,11 +393,10 @@ public class PhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ALARM 메시지이 스택 맨위에 있을 시 true 리턴
         나머지 경우는 정상 경우 이므로 false 리턴
          */
-        for(MessageItem item : message_list) {
-            if(item.getBody().equals("LEVEL\"ALARM\"")) {
+        for (MessageItem item : message_list) {
+            if (item.getBody().equals("LEVEL\"ALARM\"")) {
                 return true;
-            }
-            else if(item.getBody().equals("LEVEL\"NORMAL\"")) {
+            } else if (item.getBody().equals("LEVEL\"NORMAL\"")) {
                 return false;
             }
         }
